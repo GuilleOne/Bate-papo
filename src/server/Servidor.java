@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 
 public class Servidor {
-	public static final int port = 80;
+	public static final int port = 12345;
 	private ServerSocket serverSocket;
 	private final List<ClientSocket> clients = new LinkedList<>();
 	
@@ -65,19 +65,4 @@ public class Servidor {
 			}
 		}	
 	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		try {
-			Servidor server = new Servidor();
-			server.start();
-		} catch (IOException e) {
-			
-			System.out.println("Erro ao iniciar o servidor: "+ e.getMessage());
-		}
-		System.out.println("Servidor Finalizado");
-	}
-
 }
