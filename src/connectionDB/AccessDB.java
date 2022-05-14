@@ -6,18 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AccessDB {
-	Connection conection = null;
-
+	private Connection conection = null;
 	private String login = "root";
 	private String senha = "";
 	private String url = "jdbc:mysql://localhost:3308/cadastros_login_bate_bapo";
-	private boolean isClient;
-	private boolean isPassword;
+	
 	
 
 	
-	public boolean AccessDB(String nomeU, String pass) throws SQLException {
-		
+	public boolean login(String nomeU, String pass) throws SQLException {
+		boolean isClient = false;
+		boolean isPassword = false;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -26,9 +25,11 @@ public class AccessDB {
 			ResultSet rsClient = conection.createStatement().executeQuery("SELECT * FROM logins");
 
 			while(rsClient.next()) {
-				if(rsClient.getString("usuario").equals(nomeU) 
-						&& rsClient.getString("senha").equals(pass)) {
+				if((rsClient.getString("usuario").equals(nomeU)) && 
+						(rsClient.getString("senha").equals(pass))) {
 							
+							isClient = true;
+							isPassword = true;
 					
 				}
 				
@@ -45,39 +46,24 @@ public class AccessDB {
 
 		}
 		
-		return false;
+		if (isClient && isPassword == true) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	} 
 	
 
 	public AccessDB() {
 		
 	}
-	public boolean isClient() {
-		return isClient;
-	}
-
-
-	public void setClient(boolean isClient) {
-		this.isClient = isClient;
-	}
-
-
-	public boolean isPass() {
-		return isPassword;
-	}
-
-
-	public void setPass(boolean pass) {
-		this.isPassword = pass;
-	}
 
 
 	public static void main(String[] args) throws SQLException {
-		boolean ad;
-		AccessDB adb = new AccessDB();
-		ad = adb.AccessDB("Guigo", "bolinhoGordo");
 		
-		System.out.println();
+		AccessDB adb = new AccessDB();
+		boolean ad = adb.login("El Josi", "bolinhoMagro");
 		System.out.println(ad);
 	}
 
