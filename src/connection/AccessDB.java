@@ -1,4 +1,4 @@
-package connectionDB;
+package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,7 +36,7 @@ public class AccessDB {
 			}
 
 		} catch (ClassNotFoundException ex) {
-			System.out.println("Driver do banco não foi localizado.");
+			System.out.println("Driver do banco nï¿½o foi localizado.");
 		} catch (SQLException ex) {
 			System.out.println("Ocorreu um erro ao acessar o banco: " + ex.getMessage());
 		} finally {
