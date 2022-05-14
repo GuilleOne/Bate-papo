@@ -1,7 +1,11 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.List;
 
 import client.ClientSocket;
@@ -11,73 +15,69 @@ import java.util.LinkedList;
 
 
 public class Servidor {
-	public static final int port = 80;
 	private ServerSocket serverSocket;
-	private final List<ClientSocket> clients = new LinkedList<>();
-	
-	public void start() throws IOException{
-		System.out.println("Iniciou na porta " + port);
-		serverSocket = new ServerSocket(port);
-		clientConnectionLoop();
-	}
-	
-	
-	private void clientConnectionLoop() throws IOException{
-		while(true) {
-			ClientSocket clientSocket = new ClientSocket(serverSocket.accept());		
-			clients.add(clientSocket);
-			new Thread(() ->  clientMessageLoop(clientSocket)).start(); //expressão lambda para simplificar o código
-			
-	
-		}
-	}
-	
-	
-	private void clientMessageLoop(ClientSocket clientSocket) { //metodo para receber mensagens.
-		String msg;
-		try {
-			while((msg = clientSocket.getMessage())!= null){
-				
-				if ("sair".equalsIgnoreCase(msg))  //finaliza o cliente aberto, individualmente, se comando "sair" for utilizado.
-					return;
-				
-				System.out.printf("Mensagem recebida do client %s: %s\n",
-						clientSocket.getRemoteSocketAddress(),
-						msg);
-				sendMsgToAll(clientSocket, msg);
-			}
-		} finally {
-			clientSocket.close();
-		}
-	}
-	
 
-	private void sendMsgToAll(ClientSocket sender, String msg) {
-		Iterator<ClientSocket> iterator = clients.iterator();
-		
-		while(iterator.hasNext()) { // manda a mensagem para todos que não seja o remetente
-			ClientSocket clientSocket = iterator.next();
-			if(!sender.equals(clientSocket)) {
-				if(!clientSocket.sendMsg("cliente " + sender.getRemoteSocketAddress() + ":" + msg)) {
-					iterator.remove();
+    public void start(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+        while (true)
+            new EchoClientHandler(serverSocket.accept()).start();
+    }
+
+    public void stop() throws IOException {
+        serverSocket.close();
+    }
+
+    private static class EchoClientHandler extends Thread {
+        private Socket clientSocket;
+        private PrintWriter out;
+        private BufferedReader in;
+
+        public EchoClientHandler(Socket socket) {
+            this.clientSocket = socket;
+        }
+
+        public void run() {
+            try {
+				out = new PrintWriter(clientSocket.getOutputStream(), true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				in = new BufferedReader(
+				  new InputStreamReader(clientSocket.getInputStream()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            String inputLine;
+            try {
+				while ((inputLine = in.readLine()) != null) {
+				    if (".".equals(inputLine)) {
+				        out.println("bye");
+				        break;
+				    }
+				    out.println(inputLine);
 				}
-
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}	
-	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		try {
-			Servidor server = new Servidor();
-			server.start();
-		} catch (IOException e) {
-			
-			System.out.println("Erro ao iniciar o servidor: "+ e.getMessage());
-		}
-		System.out.println("Servidor Finalizado");
-	}
 
+            try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            out.close();
+            try {
+				clientSocket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    }
+  }
 }
