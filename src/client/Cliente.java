@@ -1,9 +1,11 @@
-package TesteInicio;
+package client;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import server.*;
 
 public class Cliente implements Runnable {
 	private final String SERVER_ADDRESS = "127.0.0.1";

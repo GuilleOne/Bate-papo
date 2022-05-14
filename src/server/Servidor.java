@@ -1,14 +1,17 @@
-package TesteInicio;
+package server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.List;
+
+import client.ClientSocket;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
 
 public class Servidor {
-	public static final int port = 54321;
+	public static final int port = 80;
 	private ServerSocket serverSocket;
 	private final List<ClientSocket> clients = new LinkedList<>();
 	
