@@ -8,7 +8,7 @@ import java.util.Scanner;
 import server.*;
 
 public class Cliente implements Runnable {
-	private final String SERVER_ADDRESS = "127.0.0.1";
+	private final String SERVER_ADDRESS = "18.230.192.221";
 	private ClientSocket clientSocket;
 	private Scanner scanner;
 	
