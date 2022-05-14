@@ -11,7 +11,9 @@ import java.util.LinkedList;
 
 
 public class Servidor {
+
 	public static final int port = 12345;
+
 	private ServerSocket serverSocket;
 	private final List<ClientSocket> clients = new LinkedList<>();
 	
