@@ -1,11 +1,11 @@
 package textCensorship;
 
 
-import java.util.Arrays;
+
 
 public class SeparateSentence {
 	
-	private String[] frasesFortes = {"fuder"};
+	private String[] frasesFortes = {"foda-se", "fuder"};
 	
 	public String[] separarFraseNormal(String e) {
 		
@@ -16,7 +16,7 @@ public class SeparateSentence {
 	
 	
 	
-	public String formatString(String e) {
+	private String formatString(String e) {
 		String[] vetor = e.split("");
 		String novaWord="";
 		
@@ -24,8 +24,6 @@ public class SeparateSentence {
 			vetor[i] = "*";
 			novaWord += vetor[i];
 		}
-		
-		
 		
 		return novaWord;
 		
@@ -36,12 +34,12 @@ public class SeparateSentence {
 
 	public String comparaPalavra(String e) {
 		
-		String novaString;
+		String novaString="";
 		
 		for(int i =0; i < frasesFortes.length; i++) {
 			
 			if(e.equals(frasesFortes[i])) {
-				novaString = 
+				novaString = formatString(e);
 			}
 			
 		}
