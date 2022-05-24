@@ -1,0 +1,6 @@
+*.class
+.project
+.classpath
+.DS_Store
+.idea
+bin/
