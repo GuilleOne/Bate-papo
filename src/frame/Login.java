@@ -42,21 +42,22 @@ public class Login extends JFrame {
 		this.setMinimumSize(new Dimension(400,300));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setBackground(Color.WHITE);
+		this.getContentPane().setBackground(new Color(0,100,0));
 		
-		jl_title.setBounds(10,10,375,100);
-		ImageIcon icon = new ImageIcon("logo.png");
-		jl_title.setIcon(new ImageIcon(icon.getImage().getScaledInstance(375, 100, Image.SCALE_SMOOTH)));
+		jl_title.setBounds(10,10,975,100);
+		ImageIcon icon = new ImageIcon("log.png");
+		jl_title.setIcon(new ImageIcon(icon.getImage().getScaledInstance(375, 200, Image.SCALE_SMOOTH)));
 		
 		
 		jb_login.setBounds(10, 220, 375, 50);
-		
+		//jb_login.setBorder(BorderFactory.createLineBorder(Color.cyan));
+
 		
 		jl_user.setBounds(10, 120, 100, 40);
-		jl_user.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		jl_user.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		
 		jl_port.setBounds(10, 170, 100, 40);
-		jl_port.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		jl_port.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		
 		jt_user.setBounds(120, 120, 265, 40);
 		jt_port.setBounds(120, 170, 265, 40);

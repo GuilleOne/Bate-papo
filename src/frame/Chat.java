@@ -121,6 +121,13 @@ public class Chat extends JFrame{
 		this.pack();
 		this.setVisible(true);
 		
+		
+		
+		
+		
+		
+		
+		
 	}
 		//run
 		public static void main(String[]args) {
