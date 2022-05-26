@@ -5,7 +5,8 @@ package textCensorship;
 
 public class SeparateSentence {
 	
-	private String[] frasesFortes = {"foda-se", "fuder"};
+	public String[] frasesFortes = {"foda-se", "fuder", "foder"};
+	String mensagem = "";
 	
 	public String[] separarFraseNormal(String e) {
 		
@@ -15,8 +16,7 @@ public class SeparateSentence {
 	}
 	
 	
-	
-	private String formatString(String e) {
+	public String formatString(String e) {
 		String[] vetor = e.split("");
 		String novaWord="";
 		

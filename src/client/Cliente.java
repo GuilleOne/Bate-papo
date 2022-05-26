@@ -6,9 +6,10 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import server.*;
+import textCensorship.*;
 
 public class Cliente implements Runnable {
-	private final String SERVER_ADDRESS = "18.230.192.221";
+	private final String SERVER_ADDRESS = "52.67.208.6";
 	private ClientSocket clientSocket;
 	private Scanner scanner;
 	
@@ -43,9 +44,20 @@ public class Cliente implements Runnable {
 	
 	private void messageLoop() throws IOException{
 		String msg = null;
+		SeparateSentence sepa = new SeparateSentence();
+		String[] vet;
 		do {
 			System.out.print("Mensagem (ou 'sair' para finalizar): ");
-			msg = scanner.nextLine();
+			msg = scanner.nextLine().replaceAll("[!.?]", "");
+			vet = sepa.separarFraseNormal(msg);
+			for(int i =0; i<vet.length; i++) {
+				for(int j=0; j<sepa.frasesFortes.length; j++) {
+					if(vet[i].equals(sepa.frasesFortes[j])) {
+						vet[i] = sepa.formatString(vet[i]);
+					}
+				}
+				msg += ' '+vet[i];
+			}	
 			clientSocket.sendMsg(msg);
 			
 		} while(!msg.equalsIgnoreCase("sair"));
