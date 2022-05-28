@@ -48,7 +48,7 @@ public class Cliente implements Runnable {
 		String[] vet;
 		do {
 			System.out.print("Mensagem (ou 'sair' para finalizar): ");
-			msg = scanner.nextLine().replaceAll("[!.?]", "");
+			msg = scanner.nextLine();
 			vet = sepa.separarFraseNormal(msg);
 			for(int i =0; i<vet.length; i++) {
 				for(int j=0; j<sepa.frasesFortes.length; j++) {
