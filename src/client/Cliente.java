@@ -9,7 +9,7 @@ import server.*;
 import textCensorship.*;
 
 public class Cliente implements Runnable {
-	private final String SERVER_ADDRESS = "52.67.208.6";
+	private final String SERVER_ADDRESS = "127.0.0.1";
 	private ClientSocket clientSocket;
 	private Scanner scanner;
 	
@@ -44,21 +44,18 @@ public class Cliente implements Runnable {
 	
 	private void messageLoop() throws IOException{
 		String msg = null;
+		String newMsg = null;
 		SeparateSentence sepa = new SeparateSentence();
 		String[] vet;
 		do {
 			System.out.print("Mensagem (ou 'sair' para finalizar): ");
 			msg = scanner.nextLine();
+			
 			vet = sepa.separarFraseNormal(msg);
-			for(int i =0; i<vet.length; i++) {
-				for(int j=0; j<sepa.frasesFortes.length; j++) {
-					if(vet[i].equals(sepa.frasesFortes[j])) {
-						vet[i] = sepa.formatString(vet[i]);
-					}
-				}
-				msg += ' '+vet[i];
-			}	
-			clientSocket.sendMsg(msg);
+			newMsg = sepa.newFrase(vet);
+			
+			
+			clientSocket.sendMsg(newMsg);
 			
 		} while(!msg.equalsIgnoreCase("sair"));
 		

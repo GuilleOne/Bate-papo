@@ -5,7 +5,8 @@ package textCensorship;
 
 public class SeparateSentence {
 	
-	public String[] frasesFortes = {"foda-se", "fuder", "foder"};
+	public String[] frasesFortes = {"foda-se", "fuder", "foder", "caralho", "puta", "puto"};
+	
 	String mensagem = "";
 	
 	public String[] separarFraseNormal(String e) {
@@ -30,22 +31,36 @@ public class SeparateSentence {
 	}
 	
 	
-	
-
-	public String comparaPalavra(String e) {
+	public String newFrase(String[] vet) {
+		String msg = null;
 		
-		String novaString="";
-		
-		for(int i =0; i < frasesFortes.length; i++) {
-			
-			if(e.equals(frasesFortes[i])) {
-				novaString = formatString(e);
+		for(int i =0; i<vet.length; i++) {
+			for(int j=0; j<this.frasesFortes.length; j++) {
+				if(vet[i].equalsIgnoreCase(frasesFortes[j])) {
+					vet[i] = this.formatString(vet[i]);
+				}
 			}
-			
-		}
+			msg += ' '+vet[i];
+		}	
 		
-		return novaString; 
+		return msg;
 	}
 	
+	
+//	public String comparaPalavra(String e) {
+//		
+//		String novaString = null;
+//		
+//		for(int i =0; i < frasesFortes.length; i++) {
+//			
+//			if(e.equals(frasesFortes[i])) {
+//				novaString = formatString(e);
+//			}
+//			
+//		}
+//		
+//		return novaString; 
+//	}
+//	
 
 }
