@@ -43,7 +43,7 @@ public class Cliente implements Runnable {
 	
 	
 	private void messageLoop() throws IOException{
-		String msg = null;
+		String msg ="";
 		String newMsg = null;
 		SeparateSentence sepa = new SeparateSentence();
 		String[] vet;

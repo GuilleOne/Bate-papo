@@ -5,7 +5,10 @@ package textCensorship;
 
 public class SeparateSentence {
 	
-	public String[] frasesFortes = {"foda-se", "fuder", "foder", "caralho", "puta", "puto"};
+	public String[] frasesFortes = {"foda-se", "fuder", "foder", 
+									"caralho", "puta", "puto",
+									"viadinho", "viado", "imbecil",
+									"porra", ""};
 	
 	String mensagem = "";
 	
