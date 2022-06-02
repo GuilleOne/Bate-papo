@@ -105,10 +105,9 @@ public class Login1 extends JFrame implements ActionListener{
 		boolean acesso=false;
 		
 		if(obj.equals(jb_login)) {
-			System.out.println(this.jb_login.getText() + " " + this.jl_port.getText());
 			
 			try {
-				acesso = ace.login(this.jb_login.getText(), this.jl_port.getText());
+				acesso = ace.login(jt_user.getText(), jt_port.getText());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}

@@ -1,7 +1,7 @@
 package frame;
 
-import java.awt.*;
-
+import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,21 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.Spring;
+
+import client.Cliente;
 
 public class Home extends JFrame {
 	
-
-
-
 	private String connection_info;
-	
-	
 	private JLabel jl_title;
 	private JButton jb_get_connected, jb_start_talk;
 	private JList jlist;
-	private JScrollPane scroll;
+	private JScrollPane scroll; 
 	
+	private Cliente cli = new Cliente();
 
 	
 	public Home(String connection_info) {
@@ -32,12 +29,13 @@ public class Home extends JFrame {
 		super("Chat - Home");
 		
 		this.connection_info = connection_info;
-		
 		initComponents();
 		configComponents();
 		insertComponents();
 		insertActions();
 		start();
+		
+		
 	}
 		
 				

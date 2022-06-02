@@ -97,8 +97,6 @@ public class Chat extends JFrame{
 		
 	messages.setText(message);
 		
-	
-		
 	}
 	
 	private void send() {
@@ -124,17 +122,10 @@ public class Chat extends JFrame{
 		
 		
 		
-		
-		
-		
-		
 	}
 		//run
 		public static void main(String[]args) {
 			Chat chat = new Chat("Jhon:127.0.0.1:3333", "");
-			
-			
-			
 			
 			
 		}
