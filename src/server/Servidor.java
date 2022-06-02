@@ -41,6 +41,7 @@ public class Servidor {
 			while((msg = clientSocket.getMessage())!= null){
 				
 				if ("sair".equalsIgnoreCase(msg))  //finaliza o cliente aberto, individualmente, se comando "sair" for utilizado.
+					
 					return;
 				
 				System.out.printf("Mensagem recebida do client %s: %s\n",

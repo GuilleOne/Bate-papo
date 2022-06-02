@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import textCensorship.SeparateSentence;
 
-import server.*;
+
+
 
 public class Cliente implements Runnable {
-	private final String SERVER_ADDRESS = "18.230.192.221";
+	private final String SERVER_ADDRESS = "127.0.0.1";
 	private ClientSocket clientSocket;
 	private Scanner scanner;
 	
@@ -19,7 +21,7 @@ public class Cliente implements Runnable {
 	public void start() throws UnknownHostException, IOException {
 		try {
 		clientSocket = new ClientSocket(
-				new Socket(SERVER_ADDRESS, Servidor.port));
+				new Socket(SERVER_ADDRESS, 12345)); // recebe a ip do servidor e a porta
 		
 		
 		new Thread(this).start();
@@ -43,10 +45,19 @@ public class Cliente implements Runnable {
 	
 	private void messageLoop() throws IOException{
 		String msg = null;
+		String newMsg=null;
+		String[] vet;
+		SeparateSentence sepa = new SeparateSentence();
+		
 		do {
 			System.out.print("Mensagem (ou 'sair' para finalizar): ");
 			msg = scanner.nextLine();
-			clientSocket.sendMsg(msg);
+			
+			vet = sepa.separarFraseNormal(msg);
+			newMsg= sepa.newFrase(vet);
+			
+			
+			clientSocket.sendMsg(newMsg);
 			
 		} while(!msg.equalsIgnoreCase("sair"));
 		

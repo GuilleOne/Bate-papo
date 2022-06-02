@@ -1,25 +1,39 @@
 package frame;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class Login extends JFrame {
+import connectionDB.AccessDB;
+
+public class Login1 extends JFrame implements ActionListener{
 	
 	private JButton jb_login;
 	private JLabel jl_user,jl_port, jl_title;
 	private JTextField jt_user, jt_port;
+	private AccessDB ace = new AccessDB();
 	
 	
-	public Login () {
-		super ("Login");
+	public Login1() {
 		initComponents();
 		configComponents();
 		insertComponents();
-		insertActions();
+		jb_login.addActionListener(this);
 		start();
-
+		
 	}
+	
 	
 	private void initComponents() {
 		jb_login = new JButton ("Entrar");
@@ -34,8 +48,8 @@ public class Login extends JFrame {
 		
 		jt_port = new JTextField ();
 		
-		
 	}
+
 	
 	private void configComponents() {
 		this.setLayout(null);
@@ -50,7 +64,7 @@ public class Login extends JFrame {
 		
 		
 		jb_login.setBounds(10, 220, 375, 50);
-		//jb_login.setBorder(BorderFactory.createLineBorder(Color.cyan));
+		
 
 		
 		jl_user.setBounds(10, 120, 100, 40);
@@ -65,6 +79,7 @@ public class Login extends JFrame {
 		
 	}
 	
+	
 	private void insertComponents() {
 		this.add(jb_login);
 		this.add(jl_user);
@@ -74,20 +89,47 @@ public class Login extends JFrame {
 		this.add(jt_port);
 	}
 	
-	private void insertActions() {
-		
-		
-	}
-	
 	private void start() {
-		this.pack();
+		
+		pack();
 		this.setVisible(true);
 		
 	}
 	
-	//run
-	public static void main(String[]args) {
-		Login login = new Login();
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		Object obj = e.getSource();
+		boolean acesso=false;
+		
+		if(obj.equals(jb_login)) {
+			System.out.println(this.jb_login.getText() + " " + this.jl_port.getText());
+			
+			try {
+				acesso = ace.login(this.jb_login.getText(), this.jl_port.getText());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			if(acesso==true) {
+				System.out.println("Entrou");
+			}
+		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+
+		Login1 log = new Login1();
+		
+	}
+	
+	
+
 }
