@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -30,6 +32,7 @@ public class Login1 extends JFrame implements ActionListener{
 		configComponents();
 		insertComponents();
 		jb_login.addActionListener(this);
+		
 		start();
 		
 	}
@@ -113,7 +116,11 @@ public class Login1 extends JFrame implements ActionListener{
 			}
 			if(acesso==true) {
 				
-				Chat chat = new Chat(jt_user.getText());
+				try {
+					Chat chat = new Chat(jt_user.getText());
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 			}
 		}
 		

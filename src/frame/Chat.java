@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import client.Cliente;
 
 
 
-public class Chat extends JFrame implements ActionListener, Runnable {
+public class Chat extends JFrame implements ActionListener {
 
 	private JLabel jl_title;
 	private JEditorPane messages;
@@ -33,14 +34,12 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	private JTextField jt_message;
 	private ArrayList<String> message_list;
 	private String connection_info;
+	Cliente client = new Cliente();
 	
 	
 	
-	public Chat(String connection_info) {
+	public Chat(String connection_info) throws UnknownHostException, IOException {
 
-		
-		
-		
 		
 		
 		super("Chat");
@@ -48,6 +47,9 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 		initComponents();
 		configComponents();
 		insertComponents();
+		
+		Thread t = new Thread(client);
+		t.start();
 		jb_message.addActionListener(this);
 		start();
 
@@ -93,13 +95,17 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 		if (jt_message.getText().length() > 0) {
 			DateFormat df = new SimpleDateFormat("hh:m:ss");
 			append_message("<b>" + df.format(new Date()) + " Eu <\b><i>" + jt_message.getText() + "</i><br>");
-			
-			
+
+			try {
+				client.messageSend(jt_message.getText());
+			} catch (IOException e) {
+				append_message(e.getMessage());
+			}
 			jt_message.setText("");
 		}
 	}
 
-	public void recieve(String phase) {
+	public void receive(String phase) {
 
 		message_list.add(phase);
 		
@@ -122,16 +128,7 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 
 	}
 
-	@Override
-	public void run() {
-		Cliente client = new Cliente();
-		try {
-			client.start();
-		} catch (IOException e) {
-			
-			e.printStackTrace();   //colocar mensagem no chat se der errado
-		}
-	}
+	
 
 	
 }
