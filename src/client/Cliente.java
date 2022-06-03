@@ -12,10 +12,10 @@ import textCensorship.SeparateSentence;
 public class Cliente implements Runnable {
 	private final String SERVER_ADDRESS = "127.0.0.1";
 	private ClientSocket clientSocket;
-	private Scanner scanner;
+	
 	
 	public  Cliente() {
-		scanner = new Scanner(System.in);
+		
 	}
 	
 	public void start() throws UnknownHostException, IOException {
@@ -43,23 +43,24 @@ public class Cliente implements Runnable {
 	
 	
 	
-	private void messageLoop() throws IOException{
-		String msg = null;
+	
+	public void messageLoop(String...arg) throws IOException{
+		String[] msg;
 		String newMsg=null;
 		String[] vet;
 		SeparateSentence sepa = new SeparateSentence();
 		
 		do {
-			System.out.print("Mensagem (ou 'sair' para finalizar): ");
-			msg = scanner.nextLine();
 			
-			vet = sepa.separarFraseNormal(msg);
+			msg = arg;
+			
+			vet = sepa.separarFraseNormal(msg[0]);
 			newMsg= sepa.newFrase(vet);
 			
 			
 			clientSocket.sendMsg(newMsg);
 			
-		} while(!msg.equalsIgnoreCase("sair"));
+		} while(!msg[0].equalsIgnoreCase("sair"));
 		
 	}
 }
