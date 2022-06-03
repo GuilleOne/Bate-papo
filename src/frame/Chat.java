@@ -32,8 +32,9 @@ public class Chat extends JFrame implements ActionListener {
 	private JPanel panel;
 	private JScrollPane scroll;
 	private JTextField jt_message;
-	private ArrayList<String> message_list;
+	public static ArrayList<String> message_list;
 	private String connection_info;
+	public String nome;
 	Cliente client = new Cliente();
 	
 	
@@ -92,9 +93,11 @@ public class Chat extends JFrame implements ActionListener {
 	}
 
 	private void send() {
+		DateFormat df = new SimpleDateFormat("hh:m:ss");
 		if (jt_message.getText().length() > 0) {
-			DateFormat df = new SimpleDateFormat("hh:m:ss");
+			
 			append_message("<b>" + df.format(new Date()) + " Eu <\b><i>" + jt_message.getText() + "</i><br>");
+			
 
 			try {
 				client.messageSend(jt_message.getText());
@@ -103,9 +106,10 @@ public class Chat extends JFrame implements ActionListener {
 			}
 			jt_message.setText("");
 		}
+		
 	}
 
-	public void receive(String phase) {
+	public static void receive(String phase) {
 
 		message_list.add(phase);
 		

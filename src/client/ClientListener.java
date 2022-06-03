@@ -8,7 +8,7 @@ import frame.Chat;
 
 public class ClientListener implements Runnable{
 	ClientSocket socket;
-	Chat chat;
+	
 	public ClientListener(ClientSocket socket) {
 		super();
 		this.socket = socket;
@@ -20,8 +20,7 @@ public class ClientListener implements Runnable{
 		while((msg = socket.getMessage()) != null) {
 			DateFormat df = new SimpleDateFormat("hh:m:ss");
 //			Chat.append_message("<b>" + df.format(new Date()) + " " + msg + "</i><br>");
-			System.out.printf("\nMensagem recebida: %s \n", 
-				msg);
+			Chat.receive(msg);
 		}
 	}
 	
