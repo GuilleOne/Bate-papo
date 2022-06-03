@@ -118,7 +118,9 @@ public class Login1 extends JFrame implements ActionListener{
 				
 				try {
 					Chat chat = new Chat(jt_user.getText());
+					this.dispose();
 				} catch (IOException e1) {
+					
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
