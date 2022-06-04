@@ -33,7 +33,6 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	private JTextField jt_message;
 	public static ArrayList<String> message_list;
 	private String connection_info;
-
 	public String nome;
 	Cliente client = new Cliente();
 
@@ -41,6 +40,9 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	
 	public Chat(String connection_info) {
 
+		
+		
+		
 		
 		super("Chat");
 		this.connection_info = connection_info;
@@ -96,11 +98,13 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 			
 
 
+
 			try {
 				client.messageLoop(jt_message.getText());
 			} catch (IOException e) {
 				append_message(e.getMessage());
 			}
+
 
 			jt_message.setText("");
 		}
@@ -108,7 +112,9 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	}
 
 
-	public void recieve(String phase) {
+
+	public void receive(String phase) {
+
 
 
 		message_list.add(phase);
