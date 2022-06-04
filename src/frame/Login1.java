@@ -22,7 +22,7 @@ import connectionDB.AccessDB;
 public class Login1 extends JFrame implements ActionListener{
 	
 	private JButton jb_login;
-	private JLabel jl_user,jl_port, jl_title;
+	private JLabel jl_user,jl_port, jl_title, jl_senha;
 	private JTextField jt_user, jt_port;
 	private AccessDB ace = new AccessDB();
 	
@@ -41,9 +41,11 @@ public class Login1 extends JFrame implements ActionListener{
 	private void initComponents() {
 		jb_login = new JButton ("Entrar");
 		
-		jl_user = new JLabel("Usu√°rio", SwingConstants.CENTER);
+		jl_user = new JLabel("Usu·rio", SwingConstants.CENTER);
 		
 		jl_port = new JLabel("Senha", SwingConstants.CENTER);
+		
+		jl_senha = new JLabel("Senha ou usu·rio incorretos!", SwingConstants.CENTER);
 		
 		jl_title = new JLabel();
 		
@@ -76,20 +78,28 @@ public class Login1 extends JFrame implements ActionListener{
 		jl_port.setBounds(10, 170, 98, 40);
 		jl_port.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		
-		jt_user.setBounds(120, 120, 260, 40);
-		jt_port.setBounds(120, 170, 260, 40);
-		 
+
+		jt_user.setBounds(120, 120, 263, 30);
+		jt_port.setBounds(120, 170, 263, 30);
 		
+		jl_senha.setBounds(120, 139, 263, 40);
+		jl_senha.setForeground(Color.red);
+
+
 	}
 	
 	
 	private void insertComponents() {
+		
+		this.add(jl_senha);
+		jl_senha.setVisible(false);
 		this.add(jb_login);
 		this.add(jl_user);
 		this.add(jl_port);
 		this.add(jl_title);
 		this.add(jt_user);
 		this.add(jt_port);
+		
 	}
 	
 	private void start() {
@@ -118,11 +128,15 @@ public class Login1 extends JFrame implements ActionListener{
 				
 				try {
 					Chat chat = new Chat(jt_user.getText());
+					chat.setNome(jt_user.getText());
 					this.dispose();
 				} catch (IOException e1) {
 					
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
+			} else {
+				jl_senha.setVisible(true);
+				
 			}
 		}
 		

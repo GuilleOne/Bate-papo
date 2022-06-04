@@ -34,8 +34,9 @@ public class Chat extends JFrame implements ActionListener {
 	private JTextField jt_message;
 	public static ArrayList<String> message_list;
 	private String connection_info;
-	public String nome;
+	static String nome;
 	Cliente client = new Cliente();
+	
 	
 	
 	
@@ -90,7 +91,9 @@ public class Chat extends JFrame implements ActionListener {
 
 	public static void append_message(String received) {
 		DateFormat df = new SimpleDateFormat("hh:m:ss");
+
 		received =  df.format(new Date()) + " : " + received;
+
 		messages.setText(messages.getText() + received + "\n");
 	}
 
@@ -118,6 +121,13 @@ public class Chat extends JFrame implements ActionListener {
 
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getNome() {
+		return this.nome;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
