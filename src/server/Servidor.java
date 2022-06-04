@@ -61,7 +61,7 @@ public class Servidor {
 		while(iterator.hasNext()) { // manda a mensagem para todos que não seja o remetente
 			ClientSocket clientSocket = iterator.next();
 			if(!sender.equals(clientSocket)) {
-				if(!clientSocket.sendMsg("cliente " + sender.getRemoteSocketAddress() + ":" + msg)) {
+				if(!clientSocket.sendMsg(msg)) {
 					iterator.remove();
 				}
 

@@ -36,7 +36,7 @@ public class Cliente implements Runnable {
 			new Thread(list).start();
 			
 			try {
-				messageSend("iniciou");
+				messageSend("Entrou");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -45,12 +45,6 @@ public class Cliente implements Runnable {
 	}
 	
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	
-	
 	public void messageSend(String arg) throws IOException{
 
 		SeparateSentence sepa = new SeparateSentence();

@@ -91,14 +91,16 @@ public class Chat extends JFrame implements ActionListener {
 
 	public static void append_message(String received) {
 		DateFormat df = new SimpleDateFormat("hh:m:ss");
-		received = (df.format(new Date()) +" "+nome + received );
+
+		received =  df.format(new Date()) + " : " + received;
+
 		messages.setText(messages.getText() + received + "\n");
 	}
 
 	private void send() throws IOException {
 		
 		if (jt_message.getText().length() > 0) {
-			client.messageSend(jt_message.getText());
+			client.messageSend(this.connection_info+" : " + jt_message.getText());
 			append_message(jt_message.getText());
 		}
 		jt_message.setText("");
