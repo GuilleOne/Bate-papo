@@ -66,7 +66,7 @@ public class Login1 extends JFrame implements ActionListener{
 		jl_title.setIcon(new ImageIcon(icon.getImage().getScaledInstance(375, 200, Image.SCALE_SMOOTH)));
 		
 		
-		jb_login.setBounds(10, 220, 373, 50);
+		jb_login.setBounds(10, 220, 370, 50);
 		//(10, 220, 375, 50);
 		
 		
@@ -76,8 +76,8 @@ public class Login1 extends JFrame implements ActionListener{
 		jl_port.setBounds(10, 170, 98, 40);
 		jl_port.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		
-		jt_user.setBounds(120, 120, 263, 40);
-		jt_port.setBounds(120, 170, 263, 40);
+		jt_user.setBounds(120, 120, 260, 40);
+		jt_port.setBounds(120, 170, 260, 40);
 		 
 		
 	}
