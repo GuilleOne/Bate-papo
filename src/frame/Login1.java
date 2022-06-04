@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -23,7 +25,8 @@ public class Login1 extends JFrame implements ActionListener{
 	
 	private JButton jb_login;
 	private JLabel jl_user,jl_port, jl_title, jl_senha;
-	private JTextField jt_user, jt_port;
+	private JTextField jt_user;
+	private JPasswordField jt_port;
 	private AccessDB ace = new AccessDB();
 	
 	
@@ -51,7 +54,7 @@ public class Login1 extends JFrame implements ActionListener{
 		
 		jt_user = new JTextField();
 		
-		jt_port = new JTextField ();
+		jt_port = new JPasswordField();
 		
 	}
 
@@ -119,8 +122,10 @@ public class Login1 extends JFrame implements ActionListener{
 		
 		if(obj.equals(jb_login)) {
 			
+			String senha = new String(jt_port.getPassword());
 			try {
-				acesso = ace.login(jt_user.getText(), jt_port.getText());
+				acesso = ace.login(jt_user.getText(), senha);
+				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -140,10 +145,8 @@ public class Login1 extends JFrame implements ActionListener{
 			}
 		}
 		
+
 	}
-	
-	
-	
 	
 	
 	
