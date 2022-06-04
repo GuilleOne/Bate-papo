@@ -12,7 +12,7 @@ import textCensorship.SeparateSentence;
 public class Cliente implements Runnable {
 	private final String SERVER_ADDRESS = "127.0.0.1";
 	private ClientSocket clientSocket;
-	
+	private String nome;
 	
 	public  Cliente() {
 		
@@ -45,7 +45,9 @@ public class Cliente implements Runnable {
 	}
 	
 
-	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 	
 	

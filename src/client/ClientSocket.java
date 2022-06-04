@@ -8,7 +8,7 @@ public class ClientSocket {
 	private final Socket socket;
 	private final BufferedReader in;
 	private final PrintWriter out;
-	
+	private String nome;
 
 	public ClientSocket(Socket socket) throws IOException {
 		this.socket = socket;
