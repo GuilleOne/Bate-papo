@@ -27,7 +27,7 @@ import client.Cliente;
 public class Chat extends JFrame implements ActionListener {
 
 	private JLabel jl_title;
-	private JEditorPane messages;
+	private static JEditorPane messages;
 	private JButton jb_message;
 	private JPanel panel;
 	private JScrollPane scroll;
@@ -88,30 +88,26 @@ public class Chat extends JFrame implements ActionListener {
 		panel.add(jb_message, BorderLayout.EAST);
 	}
 
-	public void append_message(String received) {
+	public static void append_message(String received) {
+		DateFormat df = new SimpleDateFormat("hh:m:ss");
+		received = ("<b>" + df.format(new Date()) + " Eu <\b><i>" + received + "</i><br>");
 		messages.setText(messages.getText() + received + "\n");
 	}
 
-	private void send() {
-		DateFormat df = new SimpleDateFormat("hh:m:ss");
+	private void send() throws IOException {
+		
 		if (jt_message.getText().length() > 0) {
-			
-			append_message("<b>" + df.format(new Date()) + " Eu <\b><i>" + jt_message.getText() + "</i><br>");
-			
-
-			try {
-				client.messageSend(jt_message.getText());
-			} catch (IOException e) {
-				append_message(e.getMessage());
-			}
-			jt_message.setText("");
+			client.messageSend(jt_message.getText());
+			append_message(jt_message.getText());
 		}
+		jt_message.setText("");
+		
 		
 	}
 
 	public static void receive(String phase) {
 
-		message_list.add(phase);
+		append_message(phase);
 		
 		
 	}
@@ -127,7 +123,12 @@ public class Chat extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 
 		if (obj.equals(jb_message)) {
-			this.send();
+			try {
+				this.send();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}

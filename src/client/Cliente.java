@@ -22,23 +22,26 @@ public class Cliente implements Runnable {
 	@Override
 	public void run() {
 	
-		try {
-			clientSocket = new ClientSocket(
-					new Socket(SERVER_ADDRESS, 12345));
+			try {
+				clientSocket = new ClientSocket(new Socket(SERVER_ADDRESS, 12345));
+			} catch (UnknownHostException e1) {
+
+				e1.printStackTrace();
+			} catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
+			
 			ClientListener list = new ClientListener(clientSocket);
 			new Thread(list).start();
-			messageSend();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // recebe a ip do servidor e a porta
-	
-		finally {
-			clientSocket.close();  //liberar memoria de arquivos ou conexões abertas.
-		}
+			
+			try {
+				messageSend("iniciou");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 	}
 	
 
@@ -46,22 +49,12 @@ public class Cliente implements Runnable {
 	
 	
 	
-	public void messageSend(String...arg) throws IOException{
-		String[] msg;
-		String newMsg=null;
-		String[] vet;
+	public void messageSend(String arg) throws IOException{
+
 		SeparateSentence sepa = new SeparateSentence();
-		
+
+		clientSocket.sendMsg(sepa.newFrase(sepa.separarFraseNormal(arg)));
 			
-		msg = arg;
-			
-		vet = sepa.separarFraseNormal(msg[0]);
-		newMsg= sepa.newFrase(vet);
-			
-			
-		clientSocket.sendMsg(newMsg);
-			
-		
-		
+
 	}
 }

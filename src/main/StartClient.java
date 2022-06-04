@@ -4,20 +4,11 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import client.Cliente;
+import frame.Chat;
 
 public class StartClient {
 
-	public static void main(String[] args) {}}
-//		try {
-//			Cliente client = new Cliente();
-////			client.start();
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
-//}
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Chat chat = new Chat("teste");
+	}
+}
