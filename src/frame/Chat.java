@@ -42,10 +42,6 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	public Chat(String connection_info) {
 
 		
-		
-		
-		
-		
 		super("Chat");
 		this.connection_info = connection_info;
 		initComponents();
