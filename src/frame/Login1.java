@@ -112,10 +112,7 @@ public class Login1 extends JFrame implements ActionListener{
 				e1.printStackTrace();
 			}
 			if(acesso==true) {
-				
 				Chat chat = new Chat(jt_user.getText());
-
-				this.dispose();
 
 			}
 		}

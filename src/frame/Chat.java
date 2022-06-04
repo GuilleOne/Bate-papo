@@ -33,13 +33,13 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 	private JTextField jt_message;
 	public static ArrayList<String> message_list;
 	private String connection_info;
-	public String nome;
-	Cliente client = new Cliente();
 
-	
 	
 	public Chat(String connection_info) {
 
+		
+		
+		
 		
 		
 		
@@ -96,31 +96,12 @@ public class Chat extends JFrame implements ActionListener, Runnable {
 			
 			append_message("<b>" + df.format(new Date()) + " Eu <\b><i>" + jt_message.getText() + "</i><br>");
 			
-
-
-
-			try {
-				client.messageLoop(jt_message.getText());
-			} catch (IOException e) {
-				append_message(e.getMessage());
-			}
-
-
 			jt_message.setText("");
 		}
 		
 	}
 
 
-
-	public void receive(String phase) {
-
-
-
-		message_list.add(phase);
-		
-		
-	}
 
 	private void start() {
 		this.pack();
