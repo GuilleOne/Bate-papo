@@ -6,7 +6,7 @@ import java.util.Date;
 
 import frame.Chat;
 
-public class ClientListener implements Runnable{
+public class ClientListener implements Runnable {
 	ClientSocket socket;
 	
 	public ClientListener(ClientSocket socket) {
@@ -20,7 +20,6 @@ public class ClientListener implements Runnable{
 		while((msg = socket.getMessage()) != null) {
 			DateFormat df = new SimpleDateFormat("hh:m:ss");
 //			Chat.append_message("<b>" + df.format(new Date()) + " " + msg + "</i><br>");
-			Chat.receive(msg);
 		}
 	}
 	

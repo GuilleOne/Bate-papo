@@ -32,7 +32,6 @@ public class Login1 extends JFrame implements ActionListener{
 		configComponents();
 		insertComponents();
 		jb_login.addActionListener(this);
-		
 		start();
 		
 	}
@@ -116,13 +115,11 @@ public class Login1 extends JFrame implements ActionListener{
 			}
 			if(acesso==true) {
 				
-				try {
-					Chat chat = new Chat(jt_user.getText());
-					this.dispose();
-				} catch (IOException e1) {
-					
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-				}
+				Chat chat = new Chat(jt_user.getText());
+				this.dispose();
+
+				
+
 			}
 		}
 		

@@ -18,50 +18,49 @@ public class Cliente implements Runnable {
 		
 	}
 	
-	
-	@Override
-	public void run() {
-	
+	public void start() throws UnknownHostException, IOException {
 		try {
-			clientSocket = new ClientSocket(
-					new Socket(SERVER_ADDRESS, 12345));
-			ClientListener list = new ClientListener(clientSocket);
-			new Thread(list).start();
-			messageSend();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // recebe a ip do servidor e a porta
+		clientSocket = new ClientSocket(
+				new Socket(SERVER_ADDRESS, 12345)); // recebe a ip do servidor e a porta
+		
+		
+		new Thread(this).start();
+		messageLoop();
 	
-		finally {
+		} finally {
 			clientSocket.close();  //liberar memoria de arquivos ou conexões abertas.
 		}
 	}
 	
-
+	@Override
+	public void run() { // thread para receber mensagens de outras pessoas, sem interrupção.
+		String msg;
+		while((msg = clientSocket.getMessage()) != null) {
+			System.out.printf("\nMensagem recebida: %s \n", 
+				msg);
+		}
+	}
 	
 	
 	
 	
-	public void messageSend(String...arg) throws IOException{
+	public void messageLoop(String...arg) throws IOException{
 		String[] msg;
 		String newMsg=null;
 		String[] vet;
 		SeparateSentence sepa = new SeparateSentence();
 		
+		do {
 			
-		msg = arg;
+			msg = arg;
 			
-		vet = sepa.separarFraseNormal(msg[0]);
-		newMsg= sepa.newFrase(vet);
+			vet = sepa.separarFraseNormal(msg[0]);
+			newMsg= sepa.newFrase(vet);
 			
 			
-		clientSocket.sendMsg(newMsg);
+			clientSocket.sendMsg(newMsg);
 			
-		
+		} while(!msg[0].equalsIgnoreCase("sair"));
 		
 	}
 }

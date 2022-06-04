@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import client.Cliente;
 
 
 
-public class Chat extends JFrame implements ActionListener {
+public class Chat extends JFrame implements ActionListener, Runnable {
 
 	private JLabel jl_title;
 	private JEditorPane messages;
@@ -34,13 +33,17 @@ public class Chat extends JFrame implements ActionListener {
 	private JTextField jt_message;
 	public static ArrayList<String> message_list;
 	private String connection_info;
+
 	public String nome;
 	Cliente client = new Cliente();
-	
-	
-	
-	public Chat(String connection_info) throws UnknownHostException, IOException {
 
+	
+	
+	public Chat(String connection_info) {
+
+		
+		
+		
 		
 		
 		super("Chat");
@@ -48,9 +51,6 @@ public class Chat extends JFrame implements ActionListener {
 		initComponents();
 		configComponents();
 		insertComponents();
-		
-		Thread t = new Thread(client);
-		t.start();
 		jb_message.addActionListener(this);
 		start();
 
@@ -99,17 +99,21 @@ public class Chat extends JFrame implements ActionListener {
 			append_message("<b>" + df.format(new Date()) + " Eu <\b><i>" + jt_message.getText() + "</i><br>");
 			
 
+
 			try {
-				client.messageSend(jt_message.getText());
+				client.messageLoop(jt_message.getText());
 			} catch (IOException e) {
 				append_message(e.getMessage());
 			}
+
 			jt_message.setText("");
 		}
 		
 	}
 
-	public static void receive(String phase) {
+
+	public void recieve(String phase) {
+
 
 		message_list.add(phase);
 		
@@ -132,7 +136,16 @@ public class Chat extends JFrame implements ActionListener {
 
 	}
 
-	
+	@Override
+	public void run() {
+		Cliente client = new Cliente();
+		try {
+			client.start();
+		} catch (IOException e) {
+			
+			e.printStackTrace();   //colocar mensagem no chat se der errado
+		}
+	}
 
 	
 }
